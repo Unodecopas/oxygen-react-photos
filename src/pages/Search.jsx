@@ -10,7 +10,10 @@ const Search = () => {
     <>
       <Box mt='2rem'>
         <Box mt='1rem'>
-          <TextField fullWidth label='Search...' id='searchKeyword' onChange={e => dispatch(setSearchKeyword(e.target.value))} />
+          <TextField fullWidth label='Search...' id='searchKeyword' 
+          onChange={e => setTimeout(()=>{
+            dispatch(setSearchKeyword(e.target.value))
+          },1000)} />
         </Box>
         <SearchImages />
       </Box>
