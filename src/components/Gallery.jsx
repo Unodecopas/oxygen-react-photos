@@ -16,13 +16,13 @@ const Gallery = ({images}) => {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 'fit-content',
+  width: '90%',
+  maxWidth:'600px',
   bgcolor: 'background.paper',
   border: '2px solid #000',
+  display: 'flex',
+  flexDirection: 'column',
   boxShadow: 24,
-  justifyContent:'center',
-  alignItems:'center',
-  placeItems:'center',
   p: 4,
 };
 
@@ -53,8 +53,8 @@ const Gallery = ({images}) => {
         >
           <Box sx={style}>
             <img
-              src={`${selectedImg.urls.full}?w=600&h=600&fit=crop&auto=format`}
-              srcSet={`${selectedImg.urls.full}?w=600&h=600&fit=crop&auto=format&dpr=2 2x`}
+              src={`${selectedImg.urls.full}?w=200&h=200&fit=crop&auto=format`}
+              srcSet={`${selectedImg.urls.full}?w=200&h=200&fit=crop&auto=format&dpr=2 2x`}
               alt={selectedImg.title}
             />
             <IconButton
