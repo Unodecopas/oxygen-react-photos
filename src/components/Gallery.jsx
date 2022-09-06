@@ -1,15 +1,20 @@
 import { Box, IconButton, ImageList, ImageListItem, Modal} from '@mui/material'
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { addFavorite } from '../features/favImages/favImagesSlice'
 
 const Gallery = ({images}) => {
   const [showModal, setShowModal] = useState(false)
   const [selectedImg, setSelectedImg] = useState('')
-
+  const dispatch = useDispatch()
   const handleModal = (img) =>{
     console.log(img);
     setSelectedImg(img)
     setShowModal(true)
+  }
+  const handleFavorite = () => {
+    dispatch(addFavorite(selectedImg))
   }
   const style = {
   position: 'absolute',
@@ -63,6 +68,7 @@ const Gallery = ({images}) => {
               color='inherit'
               aria-label='menu'
               sx={{ padding: '.5rem' }}
+              onClick={handleFavorite}
             >
               <FavoriteIcon />
             </IconButton>
