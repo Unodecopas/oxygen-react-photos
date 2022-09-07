@@ -13,7 +13,7 @@ const root = createRoot(container);
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <BrowserRouter basename={process.env.PUBLIC_URL}>
+      <BrowserRouter basename={'oxygen-react-photos'}>
       <App />
       </BrowserRouter>
     </Provider>
