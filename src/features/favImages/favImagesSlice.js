@@ -20,6 +20,13 @@ export const favImagesSlice = createSlice({
         : state.favImages = state.favImages.filter(fav => fav.id !== action.payload.id)
       
       editFavoritesLocal(state.favImages)
+    },
+    updateFavorite: (state, action) => {
+      const favImages = state.favImages.filter(fav => fav.id !== action.payload.id)
+      favImages.push(action.payload)
+      state.favImages = favImages
+      editFavoritesLocal(state.favImages)
+
     }
   },
 
@@ -27,5 +34,5 @@ export const favImagesSlice = createSlice({
 })
 
 export const selectFavImages = (state) => state.favImages
-export const {toggleFavorite} = favImagesSlice.actions
+export const {toggleFavorite, updateFavorite} = favImagesSlice.actions
 export default favImagesSlice.reducer

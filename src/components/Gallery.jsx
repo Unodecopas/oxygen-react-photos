@@ -1,20 +1,54 @@
-import { Box, IconButton, ImageList, ImageListItem, Modal} from '@mui/material'
+import { Box, IconButton, ImageList, ImageListItem, Modal, TextField } from '@mui/material'
 import FavoriteIcon from '@mui/icons-material/Favorite'
+import DownloadIcon from '@mui/icons-material/Download';
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { toggleFavorite } from '../features/favImages/favImagesSlice'
+import { toggleFavorite, updateFavorite } from '../features/favImages/favImagesSlice'
 
-const Gallery = ({images}) => {
+const Gallery = ({images, favGallery}) => {
   const [showModal, setShowModal] = useState(false)
   const [selectedImg, setSelectedImg] = useState('')
   const dispatch = useDispatch()
   const handleModal = (img) =>{
-    console.log(img);
     setSelectedImg(img)
     setShowModal(true)
   }
   const handleFavorite = () => {
-    dispatch(toggleFavorite(selectedImg))
+    const data = {
+      id: selectedImg.id,
+      description: selectedImg.description,
+      width: selectedImg.width,
+      height: selectedImg.height,
+      likes: selectedImg.likes,
+      urls:{
+        full: selectedImg.urls.full,
+        thumb: selectedImg.urls.thumb
+      },
+      date: new Date().toLocaleString().toString()
+    }
+    dispatch(toggleFavorite(data))
+  }
+  
+  const closeModal = () => {
+    if (favGallery){
+      dispatch(updateFavorite(selectedImg))
+    }
+    setShowModal(false)
+  }
+  const downloadImage = (img) => {
+  fetch(img.urls.full)
+    .then(response => response.blob())
+    .then(blobObject => {
+      const blob = window.URL.createObjectURL(blobObject)
+      const anchor = document.createElement('a')
+      anchor.style.display = 'none'
+      anchor.href = blob
+      anchor.download = `${img.id}`
+      document.body.appendChild(anchor)
+      anchor.click()
+      window.URL.revokeObjectURL(blob)
+    })
+    .catch(() => console.log('No se ha podido descargar la imagen.'))
   }
   const style = {
   position: 'absolute',
@@ -53,7 +87,7 @@ const Gallery = ({images}) => {
         selectedImg && 
         <Modal
           open={showModal}
-          onClose={()=>setShowModal(false)}
+          onClose={closeModal}
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
         >
@@ -63,16 +97,42 @@ const Gallery = ({images}) => {
               alt={selectedImg.title}
               style={{maxHeight:'300px'}}
             />
-            <IconButton
-              size='large'
-              edge='start'
-              color='inherit'
-              aria-label='menu'
-              sx={{ padding: '.5rem' }}
-              onClick={handleFavorite}
-            >
-              <FavoriteIcon />
-            </IconButton>
+            <Box>
+              <IconButton
+                size='large'
+                edge='start'
+                color='inherit'
+                aria-label='menu'
+                sx={{ padding: '.5rem' }}
+                onClick={handleFavorite}
+              >
+                <FavoriteIcon />
+              </IconButton>
+              <IconButton
+                size='large'
+                edge='start'
+                color='inherit'
+                aria-label='menu'
+                sx={{ padding: '.5rem' }}
+                onClick={()=>downloadImage(selectedImg)}
+              >
+                <DownloadIcon />
+              </IconButton>
+            </Box>
+            <Box>
+              <p>Width: {selectedImg.width + 'px'} Height: {selectedImg.height + 'px'}</p>
+              <p>Likes: {selectedImg.likes}</p>
+              {!favGallery && <p>Description: {selectedImg.description}</p>}
+                {
+                  favGallery && <p>Fecha: {selectedImg.date.toLocaleString('es-ES')}</p>
+                }
+                {
+                  favGallery && <TextField fullWidth label='Description' id='description' value={selectedImg.description || ''}
+                  onChange={e => setSelectedImg({...selectedImg, description: e.target.value})}
+              />
+                }
+              
+            </Box>
           </Box>
         </Modal>
       }
