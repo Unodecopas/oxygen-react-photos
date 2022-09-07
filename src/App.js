@@ -21,7 +21,7 @@ function App() {
         <Container maxWidth='lg'>
           <Routes>
             <Route path='/*' element={<Search />} />
-            <Route path='favorites' element={<Favorites />} />
+            <Route path='/favorites/*' element={<Favorites />} />
           </Routes>
         </Container>
       </main>
