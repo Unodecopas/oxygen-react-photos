@@ -18,7 +18,7 @@ const SearchImages = () => {
 
  switch (status) {
     case 'fulfilled':
-      return <Gallery images={images} />
+      return <Gallery images={images.results} />
     case 'error':
       return <Alert severity='error' sx={{ margin: '1rem 0' }}>No podemos conectar con el servidor. Inténtelo más tarde</Alert>
     case 'loading':

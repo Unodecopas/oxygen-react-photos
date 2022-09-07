@@ -10,6 +10,12 @@ const Header = () => {
           OXYGEN PHOTOS
         </Link>
       </Typography>
+      <Typography variant='h6' component='div' sx={{ flexGrow: 1 }}>
+
+        <Link component={RouterLink} to='/favorites' underline='none' color='white'>
+          Favorites
+        </Link>
+      </Typography>
     </header>
   )
 }

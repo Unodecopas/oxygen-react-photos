@@ -4,6 +4,7 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import { Route, Routes } from 'react-router-dom';
 import Search from './pages/Search';
+import Favorites from './pages/Favorites';
 
 const darkTheme = createTheme({
   palette: {
@@ -20,6 +21,7 @@ function App() {
         <Container maxWidth='lg'>
           <Routes>
             <Route path='/' element={<Search />} />
+            <Route path='/favorites' element={<Favorites />} />
           </Routes>
         </Container>
       </main>
