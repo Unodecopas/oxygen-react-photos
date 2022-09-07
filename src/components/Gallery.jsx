@@ -23,6 +23,7 @@ const Gallery = ({images}) => {
   transform: 'translate(-50%, -50%)',
   width: '90%',
   maxWidth:'600px',
+  maxHeight: '600px',
   bgcolor: 'background.paper',
   border: '2px solid #000',
   display: 'flex',
@@ -39,7 +40,7 @@ const Gallery = ({images}) => {
             <ImageListItem key={img.id}>
               <img
                 src={`${img.urls.thumb}?w=164&h=164&fit=crop&auto=format`}
-                srcSet={`${img.urls.thumb}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+                srcSet={`${img.urls.thumb}?w=164&h=164&fit=crop&auto=format`}
                 alt={img.title}
                 loading="lazy"
                 onClick={()=> handleModal(img)}
@@ -58,9 +59,9 @@ const Gallery = ({images}) => {
         >
           <Box sx={style}>
             <img
-              src={`${selectedImg.urls.full}?w=200&h=200&fit=crop&auto=format`}
-              srcSet={`${selectedImg.urls.full}?w=200&h=200&fit=crop&auto=format&dpr=2 2x`}
+              src={`${selectedImg.urls.full}`}
               alt={selectedImg.title}
+              style={{maxHeight:'300px'}}
             />
             <IconButton
               size='large'
