@@ -26,7 +26,7 @@ const Favorites = () => {
     <>
       <TextField fullWidth label='Search by Description' id='filter' value={filter}
           onChange={e => setFilter(e.target.value)} />
-      <FormControl>
+      <FormControl sx={{marginTop: '20px'}}>
         <InputLabel id="selectOrderLabel">Order by</InputLabel>
         <Select labelId="selectOrderLabel" id="selectOrder" value={order} label="Order by" onChange={(e) => setOrder(e.target.value)}>
           <MenuItem value="width">Width</MenuItem>
