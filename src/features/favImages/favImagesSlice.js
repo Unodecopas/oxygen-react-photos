@@ -22,10 +22,14 @@ export const favImagesSlice = createSlice({
       editFavoritesLocal(state.favImages)
     },
     updateFavorite: (state, action) => {
-      const favImages = state.favImages.filter(fav => fav.id !== action.payload.id)
-      favImages.push(action.payload)
-      state.favImages = favImages
-      editFavoritesLocal(state.favImages)
+      let favImages = state.favImages.find(fav => fav.id === action.payload.id)
+      if(favImages){
+        favImages = action.payload
+        const filterState = state.favImages.filter(fav => fav.id !== favImages.id)
+        filterState.push(favImages)
+        state.favImages = filterState
+        editFavoritesLocal(state.favImages)
+      }
     },
     orderFavorites: (state, action) =>{
       const favImages = state.favImages.sort((a,b) => b[action.payload] - a[action.payload])

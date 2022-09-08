@@ -12,9 +12,6 @@ const Favorites = () => {
   const [order, setOrder] = useState('likes')
   const dispatch = useDispatch()
  
-  
-  
-
   useEffect(()=>{
     const filtered = favImages.filter(fav => fav.description?.toLowerCase().search(filter.toLowerCase()) !== -1)
     setFilteredFavs(filtered)
