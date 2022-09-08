@@ -2,12 +2,13 @@ import { Box, IconButton, ImageList, ImageListItem, Modal, TextField } from '@mu
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import DownloadIcon from '@mui/icons-material/Download';
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
-import { toggleFavorite, updateFavorite } from '../features/favImages/favImagesSlice'
+import { useDispatch, useSelector } from 'react-redux'
+import { selectFavImages, toggleFavorite, updateFavorite } from '../features/favImages/favImagesSlice'
 
 const Gallery = ({images, favGallery}) => {
   const [showModal, setShowModal] = useState(false)
   const [selectedImg, setSelectedImg] = useState('')
+  const {favImages} = useSelector(selectFavImages)
   const dispatch = useDispatch()
   const handleModal = (img) =>{
     setSelectedImg(img)
@@ -28,7 +29,9 @@ const Gallery = ({images, favGallery}) => {
     }
     dispatch(toggleFavorite(data))
   }
-  
+  const iconColor = () => {
+    if(favImages.find(fav => fav.id === selectedImg.id)) return 'red'
+  }
   const closeModal = () => {
     if (favGallery){
       dispatch(updateFavorite(selectedImg))
@@ -106,7 +109,7 @@ const Gallery = ({images, favGallery}) => {
                 sx={{ padding: '.5rem' }}
                 onClick={handleFavorite}
               >
-                <FavoriteIcon />
+                <FavoriteIcon style={{color: iconColor() || 'grey'}}/>
               </IconButton>
               <IconButton
                 size='large'
