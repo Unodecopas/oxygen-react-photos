@@ -26,7 +26,10 @@ export const favImagesSlice = createSlice({
       favImages.push(action.payload)
       state.favImages = favImages
       editFavoritesLocal(state.favImages)
-
+    },
+    orderFavorites: (state, action) =>{
+      const favImages = state.favImages.sort((a,b) => b[action.payload] - a[action.payload])
+      state.favImages = favImages
     }
   },
 
@@ -34,5 +37,5 @@ export const favImagesSlice = createSlice({
 })
 
 export const selectFavImages = (state) => state.favImages
-export const {toggleFavorite, updateFavorite} = favImagesSlice.actions
+export const {toggleFavorite, updateFavorite, orderFavorites} = favImagesSlice.actions
 export default favImagesSlice.reducer
