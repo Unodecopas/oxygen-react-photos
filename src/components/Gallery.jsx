@@ -24,7 +24,7 @@ const Gallery = ({images, favGallery}) => {
         full: selectedImg.urls.full,
         thumb: selectedImg.urls.thumb
       },
-      date: new Date().toLocaleString().toString()
+      date: new Date().getTime().toString()
     }
     dispatch(toggleFavorite(data))
   }
@@ -124,7 +124,7 @@ const Gallery = ({images, favGallery}) => {
               <p>Likes: {selectedImg.likes}</p>
               {!favGallery && <p>Description: {selectedImg.description}</p>}
                 {
-                  favGallery && <p>Fecha: {selectedImg.date.toLocaleString('es-ES')}</p>
+                  favGallery && <p>Fecha: {new Date(selectedImg.date).toLocaleString('es-ES')}</p>
                 }
                 {
                   favGallery && <TextField fullWidth label='Description' id='description' value={selectedImg.description || ''}
